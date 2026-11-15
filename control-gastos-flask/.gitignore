@@ -1,1 +1,7 @@
-venv/\n.venv/\n__pycache__/\n*.py[cod]\ngastos.db\n.env\n
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.db
+.env
+app_respaldo.py

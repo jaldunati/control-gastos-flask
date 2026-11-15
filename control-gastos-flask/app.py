@@ -6,7 +6,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "clave-practica-cambiar-en-produccion")
-DB = os.path.join(os.path.dirname(__file__), "gastos.db")
+DB = os.environ.get(
+    "DATABASE_PATH",
+    os.path.join(os.path.dirname(__file__), "gastos.db")
+)
 
 def db():
     if "db" not in g:
@@ -23,9 +26,17 @@ def init_db():
     conn = sqlite3.connect(DB)
     conn.execute("CREATE TABLE IF NOT EXISTS usuarios(id INTEGER PRIMARY KEY, usuario TEXT UNIQUE, password_hash TEXT NOT NULL)")
     conn.execute("CREATE TABLE IF NOT EXISTS gastos(id INTEGER PRIMARY KEY, fecha TEXT NOT NULL, descripcion TEXT NOT NULL, monto REAL NOT NULL CHECK(monto > 0))")
+
+    admin_password = os.environ.get("ADMIN_PASSWORD", "123")
+
     if not conn.execute("SELECT id FROM usuarios WHERE usuario='admin'").fetchone():
-        conn.execute("INSERT INTO usuarios(usuario,password_hash) VALUES(?,?)", ("admin", generate_password_hash("123")))
-    conn.commit(); conn.close()
+        conn.execute(
+            "INSERT INTO usuarios(usuario,password_hash) VALUES(?,?)",
+            ("admin", generate_password_hash(admin_password))
+        )
+
+    conn.commit()
+    conn.close()
 
 def requiere_login(fn):
     @wraps(fn)
@@ -115,6 +126,8 @@ def reporte():
 @app.errorhandler(404)
 def no_encontrado(error): return render_template("404.html"),404
 
-if __name__=="__main__":
+with app.app_context():
     init_db()
-    app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(debug=False)

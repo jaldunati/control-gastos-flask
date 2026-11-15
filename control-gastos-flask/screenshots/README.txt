@@ -1,0 +1,1 @@
+Guarda aquí capturas reales con estos nombres: 01-login.png, 02-inicio.png, 03-registro.png, 04-listado.png y 05-reporte.png. El README.md las mostrará cuando estén subidas.

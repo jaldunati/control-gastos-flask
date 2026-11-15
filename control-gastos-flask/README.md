@@ -76,3 +76,36 @@ Ejecuta la aplicación, toma capturas reales y guárdalas en `screenshots/` con 
 SQLite utiliza las tablas `usuarios` (credenciales con hash) y `gastos` (fecha, descripción y monto). El archivo `gastos.db` se crea localmente y está excluido de Git para no publicar datos personales.
 
 Trabajo académico - Programación y Desarrollo Web.
+## Funcionamiento
+
+1. Iniciar sesión con admin / 123.
+2. Ingresar al panel principal.
+3. Registrar gastos indicando fecha, descripción y monto.
+4. Consultar, editar o eliminar gastos.
+5. Generar reportes seleccionando fechas.
+6. Consultar el total de gastos.
+
+## Capturas de pantalla
+
+### Inicio de sesión
+![Inicio](screenshots/01-login.png)
+
+### Panel principal
+![Panel](screenshots/02-inicio.png)
+
+### Registro de gastos
+![Registro](screenshots/03-registro.png)
+
+### Listado de gastos
+![Listado](screenshots/04-listado.png)
+
+### Reporte
+![Reporte](screenshots/05-reporte.png)
+
+## Base de datos
+
+La aplicación utiliza SQLite para guardar usuarios y gastos localmente.
+
+## Repositorio público
+
+https://github.com/jaldunati/control-gastos-flask
